@@ -1,1 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
+
+// $fa-font-path:"~font-awesome/fonts";
+$fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
+
+@import '~bootstrap/scss/bootstrap';
+// @import '~font-awesome/scss/font-awesome';
+
+@import '~ngx-toastr/toastr-bs4-alert';
+
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/regular';
+@import '~@fortawesome/fontawesome-free/scss/brands';
+
+@import './assets/lightning-admin';
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

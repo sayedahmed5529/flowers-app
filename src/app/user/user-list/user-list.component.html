@@ -1,0 +1,86 @@
+
+<div class="row mb-4">
+
+    <div class="col-md-12">
+        <div class="card border-0 rounded-0">
+            <div class="card-title text-start mb-1 p-3">
+                <h5>Users List</h5>
+            </div>
+            <div class="row">
+                <div class="col-1 filter-group">
+                    <i class="fa fa-filter" (click)="showFilterArea()" aria-hidden="true"></i>
+                    <i class="fa fa-plus" (click)="addNew(formTemplate)" aria-hidden="true"></i>
+                </div>
+
+            </div>
+            <!-- border p-4 w-75 mx-5 d-flex -->
+            <div *ngIf="filterAreaFlag==true" class="input-group">
+                <div class="w-50">
+                    <input type="text" class="form-control  filter" placeholder="phone" #search1
+                        (input)="onSearch(search1.value ,'phone')" />
+                </div>
+                <div class="w-50">
+                    <input type="text" class="form-control filter" placeholder="id" #search
+                        (input)="onSearch(search.value ,'id')" />
+
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive-md">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">#Id</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">phone</th>
+                                <th scope="col">UserType</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                *ngFor="let user of filteredUsers | paginate: { itemsPerPage: itemsPerPage,  currentPage: q }">
+                                <th scope="row">{{user.id}}</th>
+                                <td scope="row">{{user.name}}</td>
+                                <td scope="row">{{user.email}}</td>
+                                <td scope="row">{{user.phone}}</td>
+                                <td scope="row">{{user.username}}</td>
+                                <td>
+                                    <span class="badge badge-primary rounded-0 p-1">{{user.status}}</span>
+                                </td>
+                                <td class="d-flex">
+                                    <a class="btn btn-sm btn-outline-lightning rounded-0 mx-1 border-success " (click)="updateDat(user,formTemplate)">
+                                        <i class="far fa-edit"></i>
+                                    </a>
+                                    <a class="btn btn-sm btn-outline-lightning rounded-0 mx-1 border-danger text-danger ">
+                                        <i class="far fa-trash-alt"></i>
+                                    </a>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <pagination-controls (pageChange)="q = $event"></pagination-controls>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- Form template for adding/updating user (with translation) -->
+<ng-template #formTemplate>
+    <div class="d-flex">
+        <h4  class="modal-title text-start">{{selectedUser ? 'Update' : 'Add'}} User</h4>
+        <button  type="button text-end" class="btn-close close text-end" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <app-add-user [user]="selectedUser" (close)="modalRef?.hide()"
+            (savedUser)="saveUserData($event)"></app-add-user>
+    </div>
+</ng-template>
